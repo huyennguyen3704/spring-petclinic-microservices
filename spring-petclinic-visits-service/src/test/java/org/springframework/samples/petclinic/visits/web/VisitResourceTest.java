@@ -35,6 +35,7 @@ class VisitResourceTest {
     @MockBean
     VisitRepository visitRepository;
 
+    // Test for fetching visits by petIds
     @Test
     void shouldFetchVisits() throws Exception {
         Date date = new Date();
@@ -77,6 +78,7 @@ class VisitResourceTest {
     }
 
 
+    // Test for fetching visits by petId
     @Test 
     void shouldFetchVisitsByPetId() throws Exception {
         Date date = new Date();
@@ -110,6 +112,7 @@ class VisitResourceTest {
     }
 
 
+    // Test for inserting a visit
     @Test
     void shouldPostAVisit() throws Exception {
         Visit visit = Visit.VisitBuilder.aVisit()
