@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/huyennguyen3704/spring-petclinic-microservices.git'
-        IMAGE_NAME = 'nthheulwen/spring-petclinic-microservices'
+        DOCKER_IMAGE_PREFIX = 'nthheulwen'
     }
 
     stages {
@@ -28,7 +28,13 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "./mvnw clean install -P buildDocker -Dt ${IMAGE_NAME}:${LATEST_COMMIT} -f ${CHANGED_SERVICE}/pom.xml"
+                    sh """
+                        ./mvnw clean install \\
+                            -f ${CHANGED_SERVICE}/pom.xml \\
+                            -P buildDocker \\
+                            -Ddocker.image.prefix=${DOCKER_IMAGE_PREFIX} \\
+                            -Ddocker.image.tag=${LATEST_COMMIT} 
+                    """
                 }
             }
         }
