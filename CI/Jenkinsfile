@@ -28,7 +28,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "./mvnw clean install -P buildDocker -t ${IMAGE_NAME}:${LATEST_COMMIT} -f ${CHANGED_SERVICE}/pom.xml"
+                    sh "./mvnw clean install -P buildDocker -Dt ${IMAGE_NAME}:${LATEST_COMMIT} -f ${CHANGED_SERVICE}/pom.xml"
                 }
             }
         }
