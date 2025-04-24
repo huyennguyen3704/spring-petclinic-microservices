@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        REPO_URL = 'https://github.com/huyennguyen3704/spring-petclinic-microservices.git'
+        IMAGE_NAME = 'nthheulwen/spring-petclinic-microservices'
+    }
+
+    stages {
+        stage('Get Latest Commit') {
+            steps {
+                script {
+                    LATEST_COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    echo "Latest Commit Hash: ${LATEST_COMMIT}"
+                }
+            }
+        }
+
+        stage('Get Changed Service') {
+            steps {
+                script {
+                    CHANGED_SERVICE = sh(script: 'git diff-tree --no-commit-id --name-only -r "$COMMIT_HASH" | head -n 1)').split('/')[0]
+                    echo "Changed Service: ${CHANGED_SERVICE}"
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "./mvnw clean install -P buildDocker -t ${IMAGE_NAME}:${LATEST_COMMIT} -f ${CHANGED_SERVICE}/pom.xml"
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh "docker push ${IMAGE_NAME}:${LATEST_COMMIT}"
+                }
+            }
+        }
+    }
+}
