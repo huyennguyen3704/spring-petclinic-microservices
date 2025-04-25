@@ -13,6 +13,8 @@ pipeline {
             steps {
                 script {
                     sh """
+                        export KUBECONFIG=$HOME/.kube/config
+                        kubectl get nodes -o wide
                         helm upgrade --install my-app ../my-app
                     """
                 }
