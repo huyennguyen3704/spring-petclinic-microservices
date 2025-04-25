@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        KUBECONFIG = "~/.kube/config"
+    }
+
     parameters {
         string(name: 'customers-service', defaultValue: 'main', description: '')
         string(name: 'visits-service', defaultValue: 'main', description: '')
