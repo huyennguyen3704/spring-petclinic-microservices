@@ -9,13 +9,22 @@ pipeline {
     }
 
     stages {
-        stage ('Test Params') {
+        stage ('Deploy') {
             steps {
                 script {
-                    echo "customers-service: ${params['customers-service']}"
-                    echo "visits-service: ${params['visits-service']}"
-                    echo "vets-service: ${params['vets-service']}"
-                    echo "genai-service: ${params['genai-service']}"
+                    sh """
+                        helm upgrade --install my-app ../my-app
+                    """
+                }
+            }
+        }
+
+        stage ('Post Deployment') {
+            steps {
+                script {
+                    NODE_PORT = sh(script: "kubectl get svc visits-service -o jsonpath="{.spec.ports[0].nodePort}"", returnStdout: true).trim()
+                    MINIKUBE_IP = sh(script: "minikube ip", returnStdout: true).trim()
+                    echo "${MINIKUBE_IP}:${NODE_PORT}"
                 }
             }
         }

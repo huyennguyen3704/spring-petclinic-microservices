@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracing-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tracing-server
+  template:
+    metadata:
+      labels:
+        app: tracing-server
+    spec:
+      containers:
+      - name: tracing-server
+        image: {{ .Values.images.tracingServer.repository }}:{{ .Values.images.tracingServer.tag }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.services.tracingServer.port }}
+          protocol: TCP
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: tracing-server-service
+spec:
+  selector:
+    matchLabels:
+      app: tracing-server
+  ports:
+    - port:  {{ .Values.services.tracingServer.port }}
+      targetPort: {{ .Values.services.tracingServer.port }}
+      type: {{ .Values.services.tracingServer.type }}

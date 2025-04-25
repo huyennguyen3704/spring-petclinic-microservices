@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: genai-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: genai-service
+  template:
+    metadata:
+      labels:
+        app: genai-service
+    spec:
+      containers:
+      - name: genai-service
+        image: {{ .Values.images.genaiService.repository }}:{{ .Values.images.genaiService.tag }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.services.genaiService.port }}
+          protocol: TCP
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: genai-service-service
+spec:
+  selector:
+    matchLabels:
+      app: genai-service
+  ports:
+    - port:  {{ .Values.services.genaiService.port }}
+      targetPort: {{ .Values.services.genaiService.port }}
+      type: {{ .Values.services.genaiService.type }}

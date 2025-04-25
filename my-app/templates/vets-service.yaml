@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vets-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vets-service
+  template:
+    metadata:
+      labels:
+        app: vets-service
+    spec:
+      containers:
+      - name: vets-service
+        image: {{ .Values.images.vetsService.repository }}:{{ .Values.images.vetsService.tag }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.services.vetsService.port }}
+          protocol: TCP
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: vets-service-service
+spec:
+  selector:
+    matchLabels:
+      app: vets-service
+  ports:
+    - port:  {{ .Values.services.vetsService.port }}
+      targetPort: {{ .Values.services.vetsService.port }}
+      type: {{ .Values.services.vetsService.type }}
