@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'customers-service', defaultValue: 'main', description: '')
+        string(name: 'visits-service', defaultValue: 'main', description: '')
+        string(name: 'vets-service', defaultValue: 'main', description: '')
+        string(name: 'genai-service', defaultValue: 'main', description: '')
+    }
+
+    stages {
+        stage ('Test Params') {
+            steps {
+                script {
+                    echo "customers-service: ${params['customers-service']}"
+                    echo "visits-service: ${params['visits-service']}"
+                    echo "vets-service: ${params['vets-service']}"
+                    echo "genai-service: ${params['genai-service']}"
+                }
+            }
+        }
+    }
+}
