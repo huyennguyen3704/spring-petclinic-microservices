@@ -25,10 +25,9 @@ kind: Service
 metadata:
   name: customers-service-service
 spec:
+  type: {{ .Values.services.customersService.type }}
   selector:
-    matchLabels:
-      app: customers-service
+    app: customers-service
   ports:
     - port:  {{ .Values.services.customersService.port }}
       targetPort: {{ .Values.services.customersService.port }}
-      type: {{ .Values.services.customersService.type }}

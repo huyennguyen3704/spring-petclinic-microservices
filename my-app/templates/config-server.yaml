@@ -25,10 +25,9 @@ kind: Service
 metadata:
   name: config-server-service
 spec:
+  type: {{ .Values.services.configServer.type }}
   selector:
-    matchLabels:
-      app: config-server
+    app: config-server
   ports:
     - port:  {{ .Values.services.configServer.port }}
       targetPort: {{ .Values.services.configServer.port }}
-      type: {{ .Values.services.configServer.type }}

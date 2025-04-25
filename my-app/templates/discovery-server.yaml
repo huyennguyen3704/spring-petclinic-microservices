@@ -25,10 +25,9 @@ kind: Service
 metadata:
   name: discovery-server-service
 spec:
+  type: {{ .Values.services.discoveryServer.type }}
   selector:
-    matchLabels:
-      app: discovery-server
+    app: discovery-server
   ports:
     - port:  {{ .Values.services.discoveryServer.port }}
       targetPort: {{ .Values.services.discoveryServer.port }}
-      type: {{ .Values.services.discoveryServer.type }}

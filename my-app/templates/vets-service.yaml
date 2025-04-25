@@ -25,10 +25,9 @@ kind: Service
 metadata:
   name: vets-service-service
 spec:
+  type: {{ .Values.services.vetsService.type }}
   selector:
-    matchLabels:
-      app: vets-service
+    app: vets-service
   ports:
     - port:  {{ .Values.services.vetsService.port }}
       targetPort: {{ .Values.services.vetsService.port }}
-      type: {{ .Values.services.vetsService.type }}

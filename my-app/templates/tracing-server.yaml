@@ -25,10 +25,9 @@ kind: Service
 metadata:
   name: tracing-server-service
 spec:
+  type: {{ .Values.services.tracingServer.type }}
   selector:
-    matchLabels:
-      app: tracing-server
+    app: tracing-server
   ports:
     - port:  {{ .Values.services.tracingServer.port }}
       targetPort: {{ .Values.services.tracingServer.port }}
-      type: {{ .Values.services.tracingServer.type }}

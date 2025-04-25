@@ -27,8 +27,7 @@ metadata:
 spec:
   type: {{ .Values.services.adminServer.type }}
   selector:
-    matchLabels:
-      app: admin-server
+    app: admin-server
   ports:
     - port:  {{ .Values.services.adminServer.port }}
       targetPort: {{ .Values.services.adminServer.port }}

@@ -25,10 +25,9 @@ kind: Service
 metadata:
   name: genai-service-service
 spec:
+  type: {{ .Values.services.genaiService.type }}
   selector:
-    matchLabels:
-      app: genai-service
+    app: genai-service
   ports:
     - port:  {{ .Values.services.genaiService.port }}
       targetPort: {{ .Values.services.genaiService.port }}
-      type: {{ .Values.services.genaiService.type }}

@@ -25,10 +25,10 @@ kind: Service
 metadata:
   name: visits-service-service
 spec:
+  type: {{ .Values.services.visitsService.type }}
   selector:
     matchLabels:
       app: visits-service
   ports:
     - port:  {{ .Values.services.visitsService.port }}
       targetPort: {{ .Values.services.visitsService.port }}
-      type: {{ .Values.services.visitsService.type }}
