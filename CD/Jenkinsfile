@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        KUBECONFIG = "~/.kube/config"
-    }
-
     parameters {
         string(name: 'customers-service', defaultValue: 'main', description: '')
         string(name: 'visits-service', defaultValue: 'main', description: '')
@@ -17,6 +13,7 @@ pipeline {
             steps {
                 script {
                     sh """
+                        export KUBECONFIG=~/.minikube/config
                         kubectl get nodes -o wide
                         helm upgrade --install my-app ../my-app
                     """
