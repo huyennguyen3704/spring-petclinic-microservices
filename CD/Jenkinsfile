@@ -15,7 +15,8 @@ pipeline {
                     sh """
                         export KUBECONFIG=/home/huyen/.kube/config
                         kubectl get nodes -o wide
-                        helm upgrade --install my-app ../my-app
+                        pwd
+                        helm upgrade --install my-app ./my-app
                     """
                 }
             }
