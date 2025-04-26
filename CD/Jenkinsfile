@@ -14,8 +14,6 @@ pipeline {
                 script {
                     sh """
                         export KUBECONFIG=/home/huyen/.kube/config
-                        kubectl get nodes -o wide
-                        pwd
                         helm upgrade --install my-app ./my-app
                     """
                 }
@@ -25,6 +23,7 @@ pipeline {
         stage ('Post Deployment') {
             steps {
                 script {
+                    sh 'export KUBECONFIG=/home/huyen/.kube/config'
                     def NODE_PORT = sh(script: 'kubectl get svc visits-service -o jsonpath="{.spec.ports[0].nodePort}"', returnStdout: true).trim()
                     def MINIKUBE_IP = sh(script: "minikube ip", returnStdout: true).trim()
                     echo "✅ App available at: http://${MINIKUBE_IP}:${NODE_PORT}"
