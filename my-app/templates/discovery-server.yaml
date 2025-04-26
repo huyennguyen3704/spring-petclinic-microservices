@@ -12,6 +12,10 @@ spec:
       labels:
         app: discovery-server
     spec:
+      initContainers:
+      - name: wait-for-config-server
+        image: busybox
+        command: ['sh', '-c', 'until nslookup config-server-service; do echo waiting for config-server; sleep 2; done']
       containers:
       - name: discovery-server
         image: {{ .Values.images.discoveryServer.repository }}:{{ .Values.images.discoveryServer.tag }}
