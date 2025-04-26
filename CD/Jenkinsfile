@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        KUBECONFIG = '/home/huyen/.kube/config'
+    }
+
     parameters {
         string(name: 'customers-service', defaultValue: 'main', description: '')
         string(name: 'visits-service', defaultValue: 'main', description: '')
@@ -12,10 +16,11 @@ pipeline {
         stage ('Deploy') {
             steps {
                 script {
-                    sh """
-                        export KUBECONFIG=/home/huyen/.kube/config
-                        helm upgrade --install my-app ./my-app
-                    """
+                    // sh """
+                    //     export KUBECONFIG=/home/huyen/.kube/config
+                    //     helm upgrade --install my-app ./my-app
+                    // """
+                    echo "kubectl get nodes"
                 }
             }
         }
@@ -23,10 +28,9 @@ pipeline {
         stage ('Post Deployment') {
             steps {
                 script {
-                    sh 'export KUBECONFIG=/home/huyen/.kube/config'
-                    def NODE_PORT = sh(script: 'kubectl get svc visits-service -o jsonpath="{.spec.ports[0].nodePort}"', returnStdout: true).trim()
+                    def NODE_PORT = sh(script: 'kubectl get svc api-gateway -o jsonpath="{.spec.ports[0].nodePort}"', returnStdout: true).trim()
                     def MINIKUBE_IP = sh(script: "minikube ip", returnStdout: true).trim()
-                    echo "✅ App available at: http://${MINIKUBE_IP}:${NODE_PORT}"
+                    echo "✅ App available at: http://spring-petclinic:${NODE_PORT}"
                 }
             }
         }
