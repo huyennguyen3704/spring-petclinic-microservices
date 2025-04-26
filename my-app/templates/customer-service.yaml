@@ -1,40 +1,40 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: customers-service-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: customers-service
-  template:
-    metadata:
-      labels:
-        app: customers-service
-    spec:
-      initContainers:
-      - name: wait-for-config-server
-        image: busybox
-        command: ['sh', '-c', 'until nslookup config-server-service; do echo waiting for config-server; sleep 2; done']
-      - name: wait-for-discovery-server
-        image: busybox
-        command: ['sh', '-c', 'until nslookup discovery-server-service; do echo waiting for discovery-server; sleep 2; done']
-      containers:
-      - name: customers-service
-        image: {{ .Values.images.customersService.repository }}:{{ .Values.images.customersService.tag }}
-        ports:
-        - name: http
-          containerPort: {{ .Values.services.customersService.port }}
-          protocol: TCP
---- 
-apiVersion: v1
-kind: Service
-metadata:
-  name: customers-service-service
-spec:
-  type: {{ .Values.services.customersService.type }}
-  selector:
-    app: customers-service
-  ports:
-    - port:  {{ .Values.services.customersService.port }}
-      targetPort: {{ .Values.services.customersService.port }}
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: customers-service-deployment
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: customers-service
+#   template:
+#     metadata:
+#       labels:
+#         app: customers-service
+#     spec:
+#       initContainers:
+#       - name: wait-for-config-server
+#         image: busybox
+#         command: ['sh', '-c', 'until nslookup config-server-service; do echo waiting for config-server; sleep 2; done']
+#       - name: wait-for-discovery-server
+#         image: busybox
+#         command: ['sh', '-c', 'until nslookup discovery-server-service; do echo waiting for discovery-server; sleep 2; done']
+#       containers:
+#       - name: customers-service
+#         image: {{ .Values.images.customersService.repository }}:{{ .Values.images.customersService.tag }}
+#         ports:
+#         - name: http
+#           containerPort: {{ .Values.services.customersService.port }}
+#           protocol: TCP
+# --- 
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: customers-service-service
+# spec:
+#   type: {{ .Values.services.customersService.type }}
+#   selector:
+#     app: customers-service
+#   ports:
+#     - port:  {{ .Values.services.customersService.port }}
+#       targetPort: {{ .Values.services.customersService.port }}

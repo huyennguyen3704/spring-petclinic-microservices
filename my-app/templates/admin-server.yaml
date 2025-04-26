@@ -1,40 +1,40 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: admin-server-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: admin-server
-  template:
-    metadata:
-      labels:
-        app: admin-server
-    spec:
-      initContainers:
-      - name: wait-for-config-server
-        image: busybox
-        command: ['sh', '-c', 'until nslookup config-server-service; do echo waiting for config-server; sleep 2; done']
-      - name: wait-for-discovery-server
-        image: busybox
-        command: ['sh', '-c', 'until nslookup discovery-server-service; do echo waiting for discovery-server; sleep 2; done']
-      containers:
-      - name: admin-server
-        image: {{ .Values.images.adminServer.repository }}:{{ .Values.images.adminServer.tag }}
-        ports:
-        - name: http
-          containerPort: {{ .Values.services.adminServer.port }}
-          protocol: TCP
---- 
-apiVersion: v1
-kind: Service
-metadata:
-  name: admin-server-service
-spec:
-  type: {{ .Values.services.adminServer.type }}
-  selector:
-    app: admin-server
-  ports:
-    - port:  {{ .Values.services.adminServer.port }}
-      targetPort: {{ .Values.services.adminServer.port }}
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: admin-server-deployment
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: admin-server
+#   template:
+#     metadata:
+#       labels:
+#         app: admin-server
+#     spec:
+#       initContainers:
+#       - name: wait-for-config-server
+#         image: busybox
+#         command: ['sh', '-c', 'until nslookup config-server-service; do echo waiting for config-server; sleep 2; done']
+#       - name: wait-for-discovery-server
+#         image: busybox
+#         command: ['sh', '-c', 'until nslookup discovery-server-service; do echo waiting for discovery-server; sleep 2; done']
+#       containers:
+#       - name: admin-server
+#         image: {{ .Values.images.adminServer.repository }}:{{ .Values.images.adminServer.tag }}
+#         ports:
+#         - name: http
+#           containerPort: {{ .Values.services.adminServer.port }}
+#           protocol: TCP
+# --- 
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: admin-server-service
+# spec:
+#   type: {{ .Values.services.adminServer.type }}
+#   selector:
+#     app: admin-server
+#   ports:
+#     - port:  {{ .Values.services.adminServer.port }}
+#       targetPort: {{ .Values.services.adminServer.port }}
