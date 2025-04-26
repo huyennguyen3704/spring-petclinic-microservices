@@ -29,7 +29,6 @@ pipeline {
             steps {
                 script {
                     def NODE_PORT = sh(script: 'kubectl get svc api-gateway -o jsonpath="{.spec.ports[0].nodePort}"', returnStdout: true).trim()
-                    def MINIKUBE_IP = sh(script: "minikube ip", returnStdout: true).trim()
                     echo "✅ App available at: http://spring-petclinic:${NODE_PORT}"
                 }
             }
