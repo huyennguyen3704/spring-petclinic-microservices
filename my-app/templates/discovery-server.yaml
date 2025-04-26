@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: discovery-server-service
+  name: discovery-server
 spec:
   type: {{ .Values.services.discoveryServer.type }}
   selector:
