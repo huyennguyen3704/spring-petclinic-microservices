@@ -13,14 +13,33 @@ pipeline {
     }
 
     stages {
+        stage ('Get Latest Commit') {
+            steps {
+                script {
+                    LATEST_COMMIT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    echo "Latest Commit Hash: ${LATEST_COMMIT}"
+                }
+            }
+        }
+
         stage ('Deploy') {
             steps {
                 script {
-                    // sh """
-                    //     export KUBECONFIG=/home/huyen/.kube/config
-                    //     helm upgrade --install my-app ./my-app
-                    // """
-                    echo "kubectl get nodes"
+                    if (params['customers-service'] != 'main') {
+                        sh "helm upgrade --install my-app ./my-app --set images.customersService.tag=${LATEST_COMMIT}"
+                    }
+                    else if (params['visits-service'] != 'main') {
+                        sh "helm upgrade --install my-app ./my-app --set images.visitsService.tag=${LATEST_COMMIT}"
+                    }
+                    else if (params['vets-service'] != 'main') {
+                        sh "helm upgrade --install my-app ./my-app --set images.vetsService.tag=${LATEST_COMMIT}"
+                    }
+                    else if (params['genai-service'] != 'main') {
+                        sh "helm upgrade --install my-app ./my-app --set images.genaiService.tag=${LATEST_COMMIT}"
+                    }
+                    else {
+                        echo "No changes detected in any service."
+                    }
                 }
             }
         }
@@ -29,7 +48,7 @@ pipeline {
             steps {
                 script {
                     def NODE_PORT = sh(script: 'kubectl get svc api-gateway -o jsonpath="{.spec.ports[0].nodePort}"', returnStdout: true).trim()
-                    echo "✅ App available at: http://spring-petclinic:${NODE_PORT}"
+                    echo "App available at: http://spring-petclinic:${NODE_PORT}"
                 }
             }
         }
