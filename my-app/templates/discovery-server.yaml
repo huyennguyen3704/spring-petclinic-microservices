@@ -23,6 +23,9 @@ spec:
         - name: http
           containerPort: {{ .Values.services.discoveryServer.port }}
           protocol: TCP
+        env:
+          - name: EUREKA_INSTANCE_HOSTNAME
+            value: discovery-server
 --- 
 apiVersion: v1
 kind: Service

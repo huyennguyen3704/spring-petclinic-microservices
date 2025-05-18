@@ -26,6 +26,9 @@ spec:
         - name: http
           containerPort: {{ .Values.services.vetsService.port }}
           protocol: TCP
+        env:
+          - name: EUREKA_INSTANCE_HOSTNAME
+            value: vets-service
 --- 
 apiVersion: v1
 kind: Service

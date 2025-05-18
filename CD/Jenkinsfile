@@ -26,16 +26,16 @@ pipeline {
             steps {
                 script {
                     if (params['customers-service'] != 'main') {
-                        sh "helm upgrade --install my-app ./my-app --set images.customersService.tag=${LATEST_COMMIT}"
+                        sh "helm upgrade --install my-app ./my-app --set images.customersService.tag=${params['customers-service']}"
                     }
                     else if (params['visits-service'] != 'main') {
-                        sh "helm upgrade --install my-app ./my-app --set images.visitsService.tag=${LATEST_COMMIT}"
+                        sh "helm upgrade --install my-app ./my-app --set images.visitsService.tag=${params['visits-service']}"
                     }
                     else if (params['vets-service'] != 'main') {
-                        sh "helm upgrade --install my-app ./my-app --set images.vetsService.tag=${LATEST_COMMIT}"
+                        sh "helm upgrade --install my-app ./my-app --set images.vetsService.tag=${params['vets-service']}"
                     }
                     else if (params['genai-service'] != 'main') {
-                        sh "helm upgrade --install my-app ./my-app --set images.genaiService.tag=${LATEST_COMMIT}"
+                        sh "helm upgrade --install my-app ./my-app --set images.genaiService.tag=${params['genai-service']}"
                     }
                     else {
                         echo "No changes detected in any service."

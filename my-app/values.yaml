@@ -16,19 +16,19 @@ images:
     tag: latest
     pullPolicy: IfNotPresent
   customersService:
-    repository: springcommunity/spring-petclinic-customers-service
+    repository: nthheulwen/spring-petclinic-customers-service
     tag: latest
     pullPolicy: IfNotPresent
   visitsService:
-    repository: springcommunity/spring-petclinic-visits-service
+    repository: nthheulwen/spring-petclinic-visits-service
     tag: latest
     pullPolicy: IfNotPresent
   vetsService:
-    repository: springcommunity/spring-petclinic-vets-service
+    repository: nthheulwen/spring-petclinic-vets-service
     tag: latest
     pullPolicy: IfNotPresent
   genaiService:
-    repository: springcommunity/spring-petclinic-genai-service
+    repository: nthheulwen/spring-petclinic-genai-service
     tag: latest
     pullPolicy: IfNotPresent
   apiGateway:
@@ -91,16 +91,16 @@ services:
     type: NodePort
   customersService:
     port: 8081
-    type: NodePort
+    type: ClusterIP
   visitsService:
     port: 8082
-    type: NodePort
+    type: ClusterIP
   vetsService:
     port: 8083
-    type: NodePort
+    type: ClusterIP
   genaiService:
     port: 8084
-    type: NodePort
+    type: ClusterIP
   apiGateway:
     port: 8080
     type: NodePort

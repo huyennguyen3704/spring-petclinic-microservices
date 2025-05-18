@@ -26,6 +26,9 @@ spec:
         - name: http
           containerPort: {{ .Values.services.genaiService.port }}
           protocol: TCP
+        env:
+          - name: EUREKA_INSTANCE_HOSTNAME
+            value: genai-service
 --- 
 apiVersion: v1
 kind: Service

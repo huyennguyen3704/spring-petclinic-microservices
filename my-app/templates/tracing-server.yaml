@@ -19,6 +19,9 @@ spec:
         - name: http
           containerPort: {{ .Values.services.tracingServer.port }}
           protocol: TCP
+        env:
+          - name: EUREKA_INSTANCE_HOSTNAME
+            value: tracing-server
 --- 
 apiVersion: v1
 kind: Service

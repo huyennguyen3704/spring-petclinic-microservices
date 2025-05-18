@@ -26,6 +26,9 @@ spec:
         - name: http
           containerPort: {{ .Values.services.adminServer.port }}
           protocol: TCP
+        env:
+          - name: EUREKA_INSTANCE_HOSTNAME
+            value: admin-server
 --- 
 apiVersion: v1
 kind: Service
