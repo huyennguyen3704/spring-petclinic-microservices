@@ -67,7 +67,7 @@ pipeline {
         stage ('Post Deployment') {
             steps {
                 script {
-                    def NODE_PORT = sh(script: 'kubectl get svc api-gateway -o jsonpath="{.spec.ports[0].nodePort}"', returnStdout: true).trim()
+                    def NODE_PORT = sh(script: 'kubectl get svc api-gateway --namespace dev -o jsonpath="{.spec.ports[0].nodePort}"', returnStdout: true).trim()
                     echo "App available at: http://spring-petclinic:${NODE_PORT}"
                 }
             }
