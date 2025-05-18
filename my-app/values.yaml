@@ -16,11 +16,11 @@ images:
     tag: latest
     pullPolicy: IfNotPresent
   customersService:
-    repository: nthheulwen/spring-petclinic-customers-service
+    repository: springcommunity/spring-petclinic-customers-service
     tag: latest
     pullPolicy: IfNotPresent
   visitsService:
-    repository: nthheulwen/spring-petclinic-visits-service
+    repository: springcommunity/spring-petclinic-visits-service
     tag: latest
     pullPolicy: IfNotPresent
   vetsService:
@@ -28,7 +28,7 @@ images:
     tag: latest
     pullPolicy: IfNotPresent
   genaiService:
-    repository: nthheulwen/spring-petclinic-genai-service
+    repository: springcommunity/spring-petclinic-genai-service
     tag: latest
     pullPolicy: IfNotPresent
   apiGateway:
