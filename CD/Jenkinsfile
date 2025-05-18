@@ -27,7 +27,7 @@ pipeline {
                 script {
                     if (params['customers-service'] != 'main') {
                         sh """
-                            helm upgrade --install my-app ./my-app \ 
+                            helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
                             --set images.customersService.tag=${params['customers-service']}
@@ -37,13 +37,13 @@ pipeline {
                         sh """
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
-                            --create-namespace \ 
+                            --create-namespace \
                             --set images.visitsService.tag=${params['visits-service']}
                         """
                     }
                     else if (params['vets-service'] != 'main') {
                         sh """
-                            helm upgrade --install my-app ./my-app \ 
+                            helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
                             --set images.vetsService.tag=${params['vets-service']}
