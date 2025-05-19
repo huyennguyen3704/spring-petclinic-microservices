@@ -1,9 +1,10 @@
+{{- $namespace := .Values.namespace}}
 {{- range $key, $value := .Values.services }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ $value.name }}-deployment
-  namespace: {{ .Values.namespace }}
+  namespace: {{ $namespace }}
 spec:
   replicas: 1
   selector:

@@ -1,9 +1,10 @@
+{{- $namespace := .Values.namespace}}
 {{- range $key, $value := .Values.services }}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ $value.name }}
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ $namespace }}
 spec:
   type: {{ $value.type }}
   selector:
