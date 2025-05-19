@@ -1,4 +1,4 @@
-{{- $namespace := .Values.namespace}}
+{{- $namespace := .Values.release.namespace}}
 {{- range $key, $value := .Values.services }}
 apiVersion: v1
 kind: Service

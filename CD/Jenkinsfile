@@ -30,7 +30,8 @@ pipeline {
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
-                            --set services.customers.tag=${params['customers-service']}
+                            --set services.customers.tag=${params['customers-service']} \
+                            --set release.namespace=dev
                         """
                     }
                     else if (params['visits-service'] != 'main') {
@@ -38,7 +39,8 @@ pipeline {
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
-                            --set services.visits.tag=${params['visits-service']}
+                            --set services.visits.tag=${params['visits-service']} \
+                            --set release.namespace=dev
                         """
                     }
                     else if (params['vets-service'] != 'main') {
@@ -46,7 +48,8 @@ pipeline {
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
-                            --set services.vets.tag=${params['vets-service']}
+                            --set services.vets.tag=${params['vets-service']} \
+                            --set release.namespace=dev
                         """
                     }
                     else if (params['genai-service'] != 'main') {
@@ -54,7 +57,8 @@ pipeline {
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
-                            --set services.genai.tag=${params['genai-service']}
+                            --set services.genai.tag=${params['genai-service']} \
+                            --set release.namespace=dev
                         """
                     }
                     else {
