@@ -21,13 +21,3 @@
 .idea/
 *.tmproj
 .vscode/
-
-./templates/admin-server.yaml
-./templates/api-gateway.yaml
-./templates/config-server.yaml
-./templates/customers-service.yaml
-./templates/discovery-server.yaml
-./templates/genai-service.yaml
-./templates/tracing-server.yaml
-./templates/vets-service.yaml
-./templates/visits-service.yaml
