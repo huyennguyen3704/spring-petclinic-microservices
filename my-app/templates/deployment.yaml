@@ -18,7 +18,6 @@ spec:
       containers:
       - name: {{ $value.name }}
         image: {{ $value.repository }}:{{ $value.tag }}
-        pullPolicy: IfNotPresent
         ports:
         - containerPort: {{ $value.port }}
           protocol: TCP
