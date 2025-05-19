@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $service.name }}
+  name: {{ $value.name }}
   namespace: {{ $.Values.namespace }}
 spec:
-  type: {{ $service.type }}
+  type: {{ $value.type }}
   selector:
-    app: {{ $service.name }}
+    app: {{ $value.name }}
   ports:
-    - port:  {{ $service.port }}
-      targetPort: {{ $service.port }}
+    - port:  {{ $value.port }}
+      targetPort: {{ $value.port }}
 ---
 {{- end }}
