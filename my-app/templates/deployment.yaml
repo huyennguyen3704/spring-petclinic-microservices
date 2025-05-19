@@ -1,4 +1,4 @@
-{{- range $key, $service = .Values.services }}
+{{- range $service = .Values.services }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,4 +24,5 @@ spec:
         env:
           - name: EUREKA_INSTANCE_HOSTNAME
             value: {{ $service.name }}
+---
 {{- end }}
