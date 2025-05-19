@@ -30,7 +30,7 @@ pipeline {
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
-                            --set images.customersService.tag=${params['customers-service']}
+                            --set services.customers.tag=${params['customers-service']}
                         """
                     }
                     else if (params['visits-service'] != 'main') {
@@ -38,7 +38,7 @@ pipeline {
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
-                            --set images.visitsService.tag=${params['visits-service']}
+                            --set services.visits.tag=${params['visits-service']}
                         """
                     }
                     else if (params['vets-service'] != 'main') {
@@ -46,7 +46,7 @@ pipeline {
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
-                            --set images.vetsService.tag=${params['vets-service']}
+                            --set services.vets.tag=${params['vets-service']}
                         """
                     }
                     else if (params['genai-service'] != 'main') {
@@ -54,7 +54,7 @@ pipeline {
                             helm upgrade --install my-app ./my-app \
                             --namespace dev \
                             --create-namespace \
-                            --set images.genaiService.tag=${params['genai-service']}
+                            --set services.genai.tag=${params['genai-service']}
                         """
                     }
                     else {

@@ -6,43 +6,124 @@
 replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
-images:
-  configServer:
+# images:
+#   configServer:
+#     repository: springcommunity/spring-petclinic-config-server
+#     tag: latest
+#     pullPolicy: IfNotPresent
+#   discoveryServer:
+#     repository: springcommunity/spring-petclinic-discovery-server
+#     tag: latest
+#     pullPolicy: IfNotPresent
+#   customersService:
+#     repository: springcommunity/spring-petclinic-customers-service
+#     tag: latest
+#     pullPolicy: IfNotPresent
+#   visitsService:
+#     repository: springcommunity/spring-petclinic-visits-service
+#     tag: latest
+#     pullPolicy: IfNotPresent
+#   vetsService:
+#     repository: nthheulwen/spring-petclinic-vets-service
+#     tag: latest
+#     pullPolicy: IfNotPresent
+#   genaiService:
+#     repository: springcommunity/spring-petclinic-genai-service
+#     tag: latest
+#     pullPolicy: IfNotPresent
+#   apiGateway:
+#     repository: springcommunity/spring-petclinic-api-gateway
+#     tag: latest
+#     pullPolicy: IfNotPresent
+#   tracingServer:
+#     repository: openzipkin/zipkin
+#     tag: latest
+#     pullPolicy: IfNotPresent
+#   adminServer:
+#     repository: springcommunity/spring-petclinic-admin-server
+#     tag: latest
+#     pullPolicy: IfNotPresent
+
+# services:
+#   configServer:
+#     port: 8888
+#     type: NodePort
+#   discoveryServer:
+#     port: 8761
+#     type: NodePort
+#   customersService:
+#     port: 8081
+#     type: ClusterIP
+#   visitsService:
+#     port: 8082
+#     type: ClusterIP
+#   vetsService:
+#     port: 8083
+#     type: ClusterIP
+#   genaiService:
+#     port: 8084
+#     type: ClusterIP
+#   apiGateway:
+#     port: 8080
+#     type: NodePort
+#   tracingServer:
+#     port: 9411
+#     type: NodePort
+#   adminServer:
+#     port: 9090
+#     type: NodePort
+
+services:
+  config:
+    name: config-server
+    port: 8888
+    type: NodePort
     repository: springcommunity/spring-petclinic-config-server
     tag: latest
-    pullPolicy: IfNotPresent
-  discoveryServer:
+  discovery:
+    name: discovery-server
+    port: 8761
+    type: NodePort
     repository: springcommunity/spring-petclinic-discovery-server
     tag: latest
-    pullPolicy: IfNotPresent
-  customersService:
+  customers:
+    name: customers-service
+    port: 8081
+    type: ClusterIP
     repository: springcommunity/spring-petclinic-customers-service
     tag: latest
-    pullPolicy: IfNotPresent
-  visitsService:
+  visits:
+    name: visits-service
+    port: 8082
+    type: ClusterIP
     repository: springcommunity/spring-petclinic-visits-service
     tag: latest
-    pullPolicy: IfNotPresent
-  vetsService:
+  vets:
+    name: vets-service
+    port: 8083
+    type: ClusterIP
     repository: nthheulwen/spring-petclinic-vets-service
     tag: latest
-    pullPolicy: IfNotPresent
-  genaiService:
-    repository: springcommunity/spring-petclinic-genai-service
-    tag: latest
-    pullPolicy: IfNotPresent
-  apiGateway:
+  api:
+    name: api-gateway
+    port: 8080
+    type: NodePort
     repository: springcommunity/spring-petclinic-api-gateway
     tag: latest
-    pullPolicy: IfNotPresent
-  tracingServer:
+  tracing:
+    name: tracing-server
+    port: 9411
+    type: NodePort
     repository: openzipkin/zipkin
     tag: latest
-    pullPolicy: IfNotPresent
-  adminServer:
+  admin:
+    name: admin-server
+    port: 9090
+    type: NodePort
     repository: springcommunity/spring-petclinic-admin-server
     tag: latest
-    pullPolicy: IfNotPresent
+
+namespace: default
   
   
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -82,34 +163,7 @@ securityContext: {}
   # runAsUser: 1000
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
-services:
-  configServer:
-    port: 8888
-    type: NodePort
-  discoveryServer:
-    port: 8761
-    type: NodePort
-  customersService:
-    port: 8081
-    type: ClusterIP
-  visitsService:
-    port: 8082
-    type: ClusterIP
-  vetsService:
-    port: 8083
-    type: ClusterIP
-  genaiService:
-    port: 8084
-    type: ClusterIP
-  apiGateway:
-    port: 8080
-    type: NodePort
-  tracingServer:
-    port: 9411
-    type: NodePort
-  adminServer:
-    port: 9090
-    type: NodePort
+
 
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/

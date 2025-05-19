@@ -1,0 +1,27 @@
+{{- range $key, $service = .Values.services }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $service.name }}-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ $service.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $service.name }}
+    spec:
+      containers:
+      - name: {{ $service.name }}
+        image: {{ $service.repository }}:{{ $service.tag }}
+        pullPolicy: IfNotPresent
+        ports:
+        - containerPort: {{ $service.port }}
+          protocol: TCP
+        env:
+          - name: EUREKA_INSTANCE_HOSTNAME
+            value: {{ $service.name }}
+{{- end }}
