@@ -75,49 +75,49 @@ replicaCount: 1
 
 services:
   config:
-    name: config-server
+  - name: config-server
     port: 8888
     type: NodePort
     repository: springcommunity/spring-petclinic-config-server
     tag: latest
   discovery:
-    name: discovery-server
+  - name: discovery-server
     port: 8761
     type: NodePort
     repository: springcommunity/spring-petclinic-discovery-server
     tag: latest
   customers:
-    name: customers-service
+  - name: customers-service
     port: 8081
     type: ClusterIP
     repository: springcommunity/spring-petclinic-customers-service
     tag: latest
   visits:
-    name: visits-service
+  - name: visits-service
     port: 8082
     type: ClusterIP
     repository: springcommunity/spring-petclinic-visits-service
     tag: latest
   vets:
-    name: vets-service
+  - name: vets-service
     port: 8083
     type: ClusterIP
     repository: nthheulwen/spring-petclinic-vets-service
     tag: latest
   api:
-    name: api-gateway
+  - name: api-gateway
     port: 8080
     type: NodePort
     repository: springcommunity/spring-petclinic-api-gateway
     tag: latest
   tracing:
-    name: tracing-server
+  - name: tracing-server
     port: 9411
     type: NodePort
     repository: openzipkin/zipkin
     tag: latest
   admin:
-    name: admin-server
+  - name: admin-server
     port: 9090
     type: NodePort
     repository: springcommunity/spring-petclinic-admin-server
